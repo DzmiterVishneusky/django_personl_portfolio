@@ -1,0 +1,27 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+
+  <h1 id="blogtitle" class="font-weight-bold text-center">Всем приветь!!! ;) </h1>
+
+  <h2 class="text-center mb-5">У меня есть {{ blogs.count }}
+    {% if blogs.count == 1 %} пост.
+    {% elif blogs.count == 0 or blogs.count > 4 %} постов.
+    {% elif blogs.count > 1 and blogs.count < 5 %} поста.
+    {% endif %}
+  </h2>
+
+
+  {% for blog in blogs %}
+  <div class="row justify-content-center my-3">
+    <div class="col-md-10">
+      <a href="{% url 'blog:detail' blog.id %}">
+        <h2>{{ blog.title }}</h2>
+      </a>
+      <h5 class="text-muted">{{ blog.date|date:'d.m.Y' }}</h5>
+      <p>{{ blog.dascription|safe|truncatechars:100 }}</p>
+    </div>
+  </div>
+  {% endfor %}
+
+{% endblock %}
